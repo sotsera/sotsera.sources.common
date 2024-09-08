@@ -1,4 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+// Copyright (c) Alessandro Ghidini. All rights reserved.
+// SPDX-License-Identifier: MIT.
+
+using System.Diagnostics.CodeAnalysis;
 using Sotsera.Sources.Common.Extensions;
 using Xunit.Abstractions;
 
@@ -58,7 +61,6 @@ public class StringExtensionsTests
         list.Values.JoinStrings("; ", includeEmptyValues).Should().Be(expected);
     }
 
-
     private class NullOrWhiteSpaceValueGenerator : TheoryData<string?>
     {
         public NullOrWhiteSpaceValueGenerator()
@@ -95,7 +97,6 @@ public class StringExtensionsTests
             Add(new EnumerableStringList(["ciao"]), false, "ciao");
             Add(new EnumerableStringList(["a", "b"]), false, "a; b");
             Add(new EnumerableStringList(["a", null, "b"]), false, "a; b");
-
 
             Add(new EnumerableStringList(null), true, "");
             Add(new EnumerableStringList(Enumerable.Empty<string>()), true, "");

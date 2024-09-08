@@ -1,4 +1,7 @@
-﻿using Sotsera.Sources.Common.Extensions;
+// Copyright (c) Alessandro Ghidini. All rights reserved.
+// SPDX-License-Identifier: MIT.
+
+using Sotsera.Sources.Common.Extensions;
 
 namespace Sotsera.Sources.Common.Tests.Unit.Extensions;
 
@@ -13,7 +16,6 @@ public class ObjectExtensionsTests
 
         act.Should().Throw<ArgumentNullException>().WithParameterName(nameof(value));
     }
-
 
     [Theory]
     [InlineData("ciao")]

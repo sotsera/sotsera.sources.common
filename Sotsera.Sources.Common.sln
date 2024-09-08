@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{F2
 		icon.svg = icon.svg
 		LICENSE = LICENSE
 		README.md = README.md
+		Sotsera.Sources.Common.sln.DotSettings = Sotsera.Sources.Common.sln.DotSettings
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B3030FA3-01FF-42F6-A449-1D8D960AE6D1}"
