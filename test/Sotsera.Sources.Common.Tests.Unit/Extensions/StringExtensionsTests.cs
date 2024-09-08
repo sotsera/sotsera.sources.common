@@ -1,8 +1,9 @@
-﻿using System.Collections.ObjectModel;
+// Copyright (c) Alessandro Ghidini. All rights reserved.
+// SPDX-License-Identifier: MIT.
+
 using System.Diagnostics.CodeAnalysis;
 using Sotsera.Sources.Common.Extensions;
 using Xunit.Abstractions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Sotsera.Sources.Common.Tests.Unit.Extensions;
 
@@ -60,7 +61,6 @@ public class StringExtensionsTests
         list.Values.JoinStrings("; ", includeEmptyValues).Should().Be(expected);
     }
 
-
     private class NullOrWhiteSpaceValueGenerator : TheoryData<string?>
     {
         public NullOrWhiteSpaceValueGenerator()
@@ -98,7 +98,6 @@ public class StringExtensionsTests
             Add(new EnumerableStringList(["a", "b"]), false, "a; b");
             Add(new EnumerableStringList(["a", null, "b"]), false, "a; b");
 
-
             Add(new EnumerableStringList(null), true, "");
             Add(new EnumerableStringList(Enumerable.Empty<string>()), true, "");
             Add(new EnumerableStringList(Array.Empty<string>()), true, "");
@@ -110,9 +109,9 @@ public class StringExtensionsTests
         }
     }
 
-    public class EnumerableStringList: IXunitSerializable
+    public class EnumerableStringList : IXunitSerializable
     {
-        public IEnumerable<string?>? Values { get; private init; }
+        public IEnumerable<string?>? Values { get; private set; }
 
         public EnumerableStringList(IEnumerable<string?>? values)
         {
@@ -123,10 +122,10 @@ public class StringExtensionsTests
         public EnumerableStringList()
         {
         }
-        
+
         public void Deserialize(IXunitSerializationInfo info)
         {
-            info.GetValue<IEnumerable<string?>?>(nameof(Values));
+            Values = info.GetValue<IEnumerable<string?>?>(nameof(Values));
         }
 
         public void Serialize(IXunitSerializationInfo info)
