@@ -17,11 +17,11 @@ jobs:
         with:
           global-json-file: global.json
 
-      - name: dotnet build
-        run: dotnet build --configuration Release
+      - name: dotnet build sources
+        run: dotnet build src/Sotsera.Sources.Common/Sotsera.Sources.Common.csproj --configuration Release
 
       - name: dotnet test
-        run: dotnet test --configuration Release --no-build
+        run: dotnet test --configuration Release
 
       - name: dotnet format
         run: dotnet format -v detailed --verify-no-changes
