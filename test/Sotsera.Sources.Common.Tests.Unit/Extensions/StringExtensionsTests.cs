@@ -1,7 +1,6 @@
 // Copyright (c) Alessandro Ghidini. All rights reserved.
 // SPDX-License-Identifier: MIT.
 
-using System.Diagnostics.CodeAnalysis;
 using Sotsera.Sources.Common.Extensions;
 using Xunit.Abstractions;
 
@@ -85,13 +84,10 @@ public class StringExtensionsTests
 
     private class StringEnumerableToBeJoinedValueGenerator : TheoryData<EnumerableStringList, bool, string>
     {
-        [SuppressMessage("Style", "IDE0301:Simplify collection initialization", Justification = "The specific type are needed by the test")]
-        [SuppressMessage("ReSharper", "UseCollectionExpression", Justification = "The specific type are needed by the test")]
         public StringEnumerableToBeJoinedValueGenerator()
         {
             Add(new EnumerableStringList(null), false, "");
-            Add(new EnumerableStringList(Enumerable.Empty<string>()), false, "");
-            Add(new EnumerableStringList(Array.Empty<string>()), false, "");
+            Add(new EnumerableStringList([]), false, "");
             Add(new EnumerableStringList([null]), false, "");
             Add(new EnumerableStringList([null, "ciao"]), false, "ciao");
             Add(new EnumerableStringList(["ciao"]), false, "ciao");
@@ -99,8 +95,7 @@ public class StringExtensionsTests
             Add(new EnumerableStringList(["a", null, "b"]), false, "a; b");
 
             Add(new EnumerableStringList(null), true, "");
-            Add(new EnumerableStringList(Enumerable.Empty<string>()), true, "");
-            Add(new EnumerableStringList(Array.Empty<string>()), true, "");
+            Add(new EnumerableStringList([]), true, "");
             Add(new EnumerableStringList([null]), true, "");
             Add(new EnumerableStringList([null, "ciao"]), true, "; ciao");
             Add(new EnumerableStringList(["ciao"]), true, "ciao");
