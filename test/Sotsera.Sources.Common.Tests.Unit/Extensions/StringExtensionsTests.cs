@@ -1,8 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using Sotsera.Sources.Common.Extensions;
 using Xunit.Abstractions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Sotsera.Sources.Common.Tests.Unit.Extensions;
 
@@ -110,7 +108,7 @@ public class StringExtensionsTests
         }
     }
 
-    public class EnumerableStringList: IXunitSerializable
+    public class EnumerableStringList : IXunitSerializable
     {
         public IEnumerable<string?>? Values { get; private init; }
 
@@ -123,7 +121,7 @@ public class StringExtensionsTests
         public EnumerableStringList()
         {
         }
-        
+
         public void Deserialize(IXunitSerializationInfo info)
         {
             info.GetValue<IEnumerable<string?>?>(nameof(Values));

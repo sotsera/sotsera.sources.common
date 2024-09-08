@@ -22,4 +22,4 @@ internal static class StringExtensions
             ? string.Empty
             : string.Join(separator, values.Where(x => includeEmptyValues || !string.IsNullOrWhiteSpace(x)));
     }
-} 
+}
