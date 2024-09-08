@@ -39,13 +39,6 @@
     </PackageReference>
   </ItemGroup>
 
-  <Target Name="MyTarget" AfterTargets="MinVer">
-    <PropertyGroup>
-      <GITHUB_RUN_NUMBER Condition="'$(GITHUB_RUN_NUMBER)' == ''">0</GITHUB_RUN_NUMBER>
-      <FileVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).$(GITHUB_RUN_NUMBER)</FileVersion>
-    </PropertyGroup>
-  </Target>
-
   <ItemGroup>
     <None Include="../../Readme.md;../../icon.png" Pack="true" PackagePath="/" Visible="false" />
     <None Include="Sotsera.Sources.Common.props" Pack="true" PackagePath="build/" Visible="true" Action="Compile" />
