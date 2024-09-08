@@ -1,0 +1,32 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: tree:0
+
+      - name: Set up .NET Core (version from global.json)
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: dotnet build sources
+        run: dotnet build src/Sotsera.Sources.Common/Sotsera.Sources.Common.csproj --configuration Release
+
+      - name: dotnet test
+        run: dotnet test --configuration Release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: artifacts/

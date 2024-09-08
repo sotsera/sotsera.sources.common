@@ -3,7 +3,9 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <Version>0.0.0-local</Version>
+    <Version Condition="'$(IsContinuousIntegrationBuild)' != 'true'">0.0.0-local</Version>
+    <MinVerSkip Condition="'$(IsContinuousIntegrationBuild)' != 'true'">true</MinVerSkip>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
 
     <Authors>Alessandro Ghidini</Authors>
     <Company>Sotsera</Company>
@@ -30,12 +32,19 @@
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CustomContentTarget</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(IsContinuousIntegrationBuild)' == 'true'">
+  <ItemGroup>
     <PackageReference Include="MinVer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <Target Name="MyTarget" AfterTargets="MinVer">
+    <PropertyGroup>
+      <GITHUB_RUN_NUMBER Condition="'$(GITHUB_RUN_NUMBER)' == ''">0</GITHUB_RUN_NUMBER>
+      <FileVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).$(GITHUB_RUN_NUMBER)</FileVersion>
+    </PropertyGroup>
+  </Target>
 
   <ItemGroup>
     <None Include="../../Readme.md;../../icon.png" Pack="true" PackagePath="/" Visible="false" />
