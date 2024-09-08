@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
+
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -8,9 +9,14 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+
+    <IsContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</IsContinuousIntegrationBuild>
+
+    <SotseraPackagesFolder>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory), "artifacts"))</SotseraPackagesFolder>
+    <SotseraRestoreFolder>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory), ".restore"))</SotseraRestoreFolder>
+    <SotseraSourceProjectFolder>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory), "src", "Sotsera.Sources.Common"))</SotseraSourceProjectFolder>
+    <SotseraTestProjectFolder>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory), "test", "Sotsera.Sources.Common.Tests.Unit"))</SotseraTestProjectFolder>
+    <SotseraIntegrationTestProject>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory), "test", "Sotsera.Sources.Common.Tests.Integration", "Sotsera.Sources.Common.Tests.Integration.csproj"))</SotseraIntegrationTestProject>
   </PropertyGroup>
 
-  <ItemGroup>
-    <InternalsVisibleTo Include="$(AssemblyName).Tests.Unit" />
-  </ItemGroup>
 </Project>

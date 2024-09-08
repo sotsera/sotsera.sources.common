@@ -1,6 +1,8 @@
 *.user
 
 .vs/
+.restore/
 
+artifacts/
 bin/
 obj/

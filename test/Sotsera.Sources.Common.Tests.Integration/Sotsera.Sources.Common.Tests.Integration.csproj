@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>
+    <RestoreAdditionalProjectSources>$(SotseraPackagesFolder)</RestoreAdditionalProjectSources>
+    <RestorePackagesPath>$(SotseraRestoreFolder)</RestorePackagesPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(SotseraTestProjectFolder)/**/*.cs" Exclude="$(SotseraTestProjectFolder)/bin/**/*.*;$(SotseraTestProjectFolder)/obj/**/*.*">
+      <Link>Sotsera.Sources.Common.Tests/%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sotsera.Sources.Common">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
