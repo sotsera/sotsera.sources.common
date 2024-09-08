@@ -31,7 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(IsContinuousIntegrationBuild)' == 'true'">
-    <PackageReference Include="MinVer" Version="6.0.0-rc.1">
+    <PackageReference Include="MinVer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
