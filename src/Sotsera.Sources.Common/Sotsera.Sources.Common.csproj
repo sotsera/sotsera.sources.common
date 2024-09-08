@@ -1,11 +1,65 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <Version Condition="'$(ContinuousIntegrationBuild)' != 'true'">0.0.0-local</Version>
+    <MinVerSkip Condition="'$(ContinuousIntegrationBuild)' != 'true'">true</MinVerSkip>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+
+    <Authors>Alessandro Ghidini</Authors>
+    <Company>Sotsera</Company>
+    <Description>A source-code only package for the Sotsera common utilities</Description>
+    <Copyright>Sotsera</Copyright>
+
+    <RepositoryUrl>https://github.com/sotsera/sotsera.sources.common</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <!--<SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>-->
+    <NoWarn>$(NoWarn);NU5128;</NoWarn>
+
+    <PackageOutputPath>$(SotseraPackagesFolder)</PackageOutputPath>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/sotsera/sotsera.sources.common</PackageProjectUrl>
+    <PackageTags>sotsera source</PackageTags>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CustomContentTarget</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MinVer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../Readme.md;../../icon.png" Pack="true" PackagePath="/" Visible="false" />
+    <None Include="Sotsera.Sources.Common.props" Pack="true" PackagePath="build/" Visible="true" Action="Compile" />
+  </ItemGroup>
+
+  <Target Name="CustomContentTarget">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="**/*.cs" Exclude="bin/**/*.*;obj/**/*.*;$(OutputPath)/*.dll" BuildAction="Compile" Visible="false">
+        <PackagePath>contentFiles/cs/$(TargetFramework)/$(PackageId)/</PackagePath>
+      </TfmSpecificPackageFile>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="RestoreTestDependencies" AfterTargets="Pack">
+    <Message Text="Remove the old library: $(SotseraRestoreFolder)/$(PackageId)" Importance="high" Condition="Exists('$(SotseraRestoreFolder)/$(PackageId)')" />
+    <RemoveDir Directories="$(SotseraRestoreFolder)/$(PackageId)" Condition="Exists('$(SotseraRestoreFolder)/$(PackageId)')" />
+
+    <Exec Command="dotnet remove $(SotseraIntegrationTestProject) package $(PackageId)" IgnoreExitCode="true" />
+    <Exec Command="dotnet add $(SotseraIntegrationTestProject) package $(PackageId) -v $(PackageVersion)" />
+
+    <MSBuild Projects="$(SotseraIntegrationTestProject)" Targets="Rebuild" Properties="Configuration=$(Configuration);" />
+  </Target>
+
 </Project>

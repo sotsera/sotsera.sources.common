@@ -1,24 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" />
-    <PackageReference Include="FluentAssertions" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="xunit" />
-    <PackageReference Include="xunit.runner.visualstudio" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Sotsera.Sources.Common\Sotsera.Sources.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Using Include="Xunit" />
-    <Using Include="FluentAssertions" />
+    <Compile Include="$(SotseraSourceProjectFolder)/**/*.cs" Exclude="$(SotseraSourceProjectFolder)/bin/**/*.*;$(SotseraSourceProjectFolder)\obj\**\*.*">
+      <Link>Sotsera.Sources.Common/%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
   </ItemGroup>
 
 </Project>

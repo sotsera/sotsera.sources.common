@@ -1,16 +1,19 @@
-name: Verify pull request
+name: Continuous Integration
 
 on:
-  pull_request:
-    branches: [ "main" ]
+  push:
+    branches: ["main"]
 
 jobs:
   build:
-    name: Verify pull request
+    name: Continuous Integration
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: tree:0
 
       - name: Set up .NET Core (version from global.json)
         uses: actions/setup-dotnet@v4
@@ -23,5 +26,7 @@ jobs:
       - name: dotnet test
         run: dotnet test --configuration Release
 
-      - name: dotnet format
-        run: dotnet format -v detailed --verify-no-changes
+      - uses: actions/upload-artifact@v4
+        with:
+          name: artifact
+          path: artifacts/
