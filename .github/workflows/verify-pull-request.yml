@@ -12,5 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Greet
-        run: echo Ciao!
+      - name: Set up .NET Core (version from global.json)
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: dotnet build
+        run: dotnet build --configuration Release
+
+      - name: dotnet test
+        run: dotnet test --configuration Release --no-build
+
+      - name: dotnet format
+        run: dotnet format -v detailed --verify-no-changes
