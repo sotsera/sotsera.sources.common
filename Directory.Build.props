@@ -10,7 +10,7 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
 
-    <IsContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</IsContinuousIntegrationBuild>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
 
     <SotseraPackagesFolder>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory), "artifacts"))</SotseraPackagesFolder>
     <SotseraRestoreFolder>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory), ".restore"))</SotseraRestoreFolder>

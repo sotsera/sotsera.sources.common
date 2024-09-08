@@ -3,8 +3,8 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
-    <Version Condition="'$(IsContinuousIntegrationBuild)' != 'true'">0.0.0-local</Version>
-    <MinVerSkip Condition="'$(IsContinuousIntegrationBuild)' != 'true'">true</MinVerSkip>
+    <Version Condition="'$(ContinuousIntegrationBuild)' != 'true'">0.0.0-local</Version>
+    <MinVerSkip Condition="'$(ContinuousIntegrationBuild)' != 'true'">true</MinVerSkip>
     <MinVerTagPrefix>v</MinVerTagPrefix>
 
     <Authors>Alessandro Ghidini</Authors>
