@@ -6,6 +6,9 @@ using System.Runtime.CompilerServices;
 
 namespace Sotsera.Sources.Common.Extensions;
 
+/// <summary>
+/// Provides extension methods for object validation.
+/// </summary>
 internal static class ObjectExtensions
 {
     /// <summary>

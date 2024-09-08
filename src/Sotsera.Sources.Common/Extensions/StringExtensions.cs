@@ -7,6 +7,9 @@ using System.Runtime.CompilerServices;
 
 namespace Sotsera.Sources.Common.Extensions;
 
+/// <summary>
+/// Provides extension methods for string validation and manipulation.
+/// </summary>
 internal static class StringExtensions
 {
     /// <summary>

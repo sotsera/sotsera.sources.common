@@ -111,7 +111,7 @@ public class StringExtensionsTests
 
     public class EnumerableStringList : IXunitSerializable
     {
-        public IEnumerable<string?>? Values { get; private init; }
+        public IEnumerable<string?>? Values { get; private set; }
 
         public EnumerableStringList(IEnumerable<string?>? values)
         {
@@ -125,7 +125,7 @@ public class StringExtensionsTests
 
         public void Deserialize(IXunitSerializationInfo info)
         {
-            info.GetValue<IEnumerable<string?>?>(nameof(Values));
+            Values = info.GetValue<IEnumerable<string?>?>(nameof(Values));
         }
 
         public void Serialize(IXunitSerializationInfo info)
