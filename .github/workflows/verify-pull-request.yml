@@ -21,10 +21,12 @@ jobs:
         uses: actions/setup-dotnet@v4
 
       - name: dotnet build (sources only)
-        run: dotnet build src/**/*.csproj --configuration Release
+        run: dotnet build src/Sotsera.Sources.Common/Sotsera.Sources.Common.csproj --configuration Release
 
       - name: dotnet build (tests only)
-        run: dotnet build test/**/*.csproj --configuration Release
+        run: |
+          dotnet build test/Sotsera.Sources.Common.Tests.Unit/Sotsera.Sources.Common.Tests.Unit.csproj --configuration Release
+          dotnet build test/Sotsera.Sources.Common.Tests.Integration/Sotsera.Sources.Common.Tests.Integration.csproj --configuration Release
 
       - name: dotnet test
         run: dotnet test --configuration Release --no-build
