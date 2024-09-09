@@ -11,7 +11,7 @@ env:
 jobs:
   build:
     name: Verify pull request
-    runs-on: ${{ vars.RUNNER }}
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout
