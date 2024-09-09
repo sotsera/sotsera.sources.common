@@ -1,0 +1,77 @@
+name: Continuous Integration on new tag
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+-preview.[0-9]+"
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_NOLOGO: true
+  ARTIFACTS_NAME: artifacts
+  ARTIFACTS_FOLDER: ${{github.workspace}}/artifacts
+  NUGET_URI: "https://api.nuget.org/v3/index.json"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout (all tree)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: tree:0
+
+      - name: Set up .NET Core (global.json)
+        uses: actions/setup-dotnet@v4
+
+      - name: dotnet build (sources only)
+        run: dotnet build src/Sotsera.Sources.Common/Sotsera.Sources.Common.csproj --configuration Release
+
+      - name: dotnet build (tests only)
+        run: |
+          dotnet build test/Sotsera.Sources.Common.Tests.Unit/Sotsera.Sources.Common.Tests.Unit.csproj --configuration Release
+          dotnet build test/Sotsera.Sources.Common.Tests.Integration/Sotsera.Sources.Common.Tests.Integration.csproj --configuration Release
+
+      - name: dotnet test
+        run: dotnet test --configuration Release --no-build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          if-no-files-found: error
+          name: ${{ env.ARTIFACTS_NAME }}
+          path: ${{ env.ARTIFACTS_FOLDER }}
+          retention-days: 5
+
+  publish:
+    name: Publish
+    runs-on: ubuntu-22.04
+    needs: build
+
+    steps:
+      - name: Dowload artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.ARTIFACTS_NAME }}
+          path: ${{ env.ARTIFACTS_FOLDER }}
+
+      - name: Set up .NET Core (global.json)
+        uses: actions/setup-dotnet@v4
+
+      - name: Publish NuGet packages
+        shell: pwsh
+        env:
+          NUGET_APY_KEY: ${{ secrets.NUGET_APY_KEY }}
+        run: |
+          Write-Host "Current ref: $env:GITHUB_REF"
+          Write-Host "Searching nupkg in folder: ${{ env.ARTIFACTS_FOLDER }}"
+          $files = Get-ChildItem "${{ env.ARTIFACTS_FOLDER }}/*" -Include *.nupkg
+          foreach($file in $files) {
+            Write-Host "Pushing NuGet package: $($file.FullName)"
+            & dotnet nuget push "$($file.FullName)" --api-key "$env:NUGET_APY_KEY" --source ${{ env.NUGET_URI }} --force-english-output --skip-duplicate
+          }

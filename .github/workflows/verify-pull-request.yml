@@ -4,24 +4,32 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_NOLOGO: true
+
 jobs:
   build:
     name: Verify pull request
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set up .NET Core (version from global.json)
+      - name: Set up .NET Core (global.json)
         uses: actions/setup-dotnet@v4
-        with:
-          global-json-file: global.json
 
-      - name: dotnet build sources
+      - name: dotnet build (sources only)
         run: dotnet build src/Sotsera.Sources.Common/Sotsera.Sources.Common.csproj --configuration Release
 
+      - name: dotnet build (tests only)
+        run: |
+          dotnet build test/Sotsera.Sources.Common.Tests.Unit/Sotsera.Sources.Common.Tests.Unit.csproj --configuration Release
+          dotnet build test/Sotsera.Sources.Common.Tests.Integration/Sotsera.Sources.Common.Tests.Integration.csproj --configuration Release
+
       - name: dotnet test
-        run: dotnet test --configuration Release
+        run: dotnet test --configuration Release --no-build
 
       - name: dotnet format
-        run: dotnet format -v detailed --verify-no-changes
+        run: dotnet format -v detailed --verify-no-changes --no-restore
