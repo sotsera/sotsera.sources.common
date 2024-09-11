@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <Compile Include="$(SotseraSourceProjectFolder)/**/*.cs" Exclude="$(SotseraSourceProjectFolder)/bin/**/*.*;$(SotseraSourceProjectFolder)\obj\**\*.*">
-      <Link>Sotsera.Sources.Common/%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </Compile>
+    <ProjectReference Include="..\..\src\Sotsera.Sources.Common\Sotsera.Sources.Common.csproj" />
   </ItemGroup>
 
 </Project>

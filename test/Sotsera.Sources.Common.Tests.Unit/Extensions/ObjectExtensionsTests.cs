@@ -20,7 +20,7 @@ public class ObjectExtensionsTests
     [Theory]
     [InlineData("ciao")]
     [InlineData(true)]
-    public void ThrowIfNull_ShouldNotThrowArgumentNullException_WhenValueIsNotNull(object? value)
+    public void ThrowIfNull_ShouldNotThrow_WhenValueIsNotNull(object? value)
     {
         Action act = () => value.ThrowIfNull();
 

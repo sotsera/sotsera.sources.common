@@ -2,9 +2,12 @@
 
 A **source only** package for common classes and utilities.
 
-[![GitHub license](https://img.shields.io/github/license/sotsera/sotsera.sources.common)](https://github.com/sotsera/sotsera.sources.common/actions/blob/main/LICENSE)
-![example workflow](https://github.com/sotsera/sotsera.sources.common/actions/workflows/publish-nuget-on-tag.yml/badge.svg)
-[![Sotsera.Common on NuGet](https://img.shields.io/nuget/v/Sotsera.Sources.Common.svg)](https://www.nuget.org/packages/Sotsera.Sources.Common/)
+[![GitHub license](https://img.shields.io/github/license/sotsera/sotsera.sources.common?style=flat-square)](LICENSE)
+[![Target](https://img.shields.io/static/v1?label=target&message=net9.0&color=512bd4&logo=.net&style=flat-square)](https://dotnet.microsoft.com/en-us/)
+[![GitHub last commit](https://img.shields.io/github/last-commit/sotsera/sotsera.sources.common?display_timestamp=committer&style=flat-square)](https://github.com/sotsera/sotsera.sources.common)
+[![NuGet](https://img.shields.io/nuget/v/sotsera.sources.common.svg?style=flat-square)](https://www.nuget.org/packages/sotsera.sources.common/)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/sotsera.sources.common?style=flat-square)](https://www.nuget.org/packages/sotsera.sources.common/)
+[![GitHub Repo stars](https://img.shields.io/github/stars/sotsera/sotsera.sources.common?style=flat-square)](https://github.com/sotsera/sotsera.sources.common)
 
 ### Thanks
 

@@ -19,36 +19,47 @@ public class StringExtensionsTests
     }
 
     [Theory]
-    [ClassData(typeof(NullOrWhiteSpaceValueGenerator))]
+    [ClassData(typeof(WhiteSpaceValueGenerator))]
     public void ThrowIfEmpty_ShouldThrowArgumentException_WhenValueIsEmpty(string value)
     {
-        value.IsEmpty().Should().Be(true);
+        Action act = () => value.ThrowIfEmpty();
+
+        act.Should().ThrowExactly<ArgumentException>().WithParameterName(nameof(value));
+    }
+
+    [Theory]
+    [ClassData(typeof(NonWhitespaceValueGenerator))]
+    public void ThrowIfEmpty_ShouldNotThrow_WhenValueIsEmpty(string value)
+    {
+        Action act = () => value.ThrowIfEmpty();
+
+        act.Should().NotThrow();
     }
 
     [Theory]
     [ClassData(typeof(NullOrWhiteSpaceValueGenerator))]
-    public void IsEmpty_ShouldReturnTrue_WhenTheValueIsNullOrWhitespace(string? value)
+    public void IsEmpty_ShouldReturnTrue_WhenValueIsNullOrWhitespace(string? value)
     {
         value.IsEmpty().Should().BeTrue();
     }
 
     [Theory]
     [ClassData(typeof(NonWhitespaceValueGenerator))]
-    public void IsEmpty_ShouldReturnFalse_WhenTheValueIsNonEmpty(string? value)
+    public void IsEmpty_ShouldReturnFalse_WhenValueIsNonEmpty(string? value)
     {
         value.IsEmpty().Should().BeFalse();
     }
 
     [Theory]
     [ClassData(typeof(NullOrWhiteSpaceValueGenerator))]
-    public void IsNonEmpty_ShouldReturnFalse_WhenTheValueIsNullOrWhitespace(string? value)
+    public void IsNonEmpty_ShouldReturnFalse_WhenValueIsNullOrWhitespace(string? value)
     {
         value.IsNonEmpty().Should().BeFalse();
     }
 
     [Theory]
     [ClassData(typeof(NonWhitespaceValueGenerator))]
-    public void IsNonEmpty_ShouldReturnTrue_WhenTheValueIsNonEmpty(string? value)
+    public void IsNonEmpty_ShouldReturnTrue_WhenValueIsNonEmpty(string? value)
     {
         value.IsNonEmpty().Should().BeTrue();
     }
@@ -60,7 +71,7 @@ public class StringExtensionsTests
         list.Values.JoinStrings("; ", includeEmptyValues).Should().Be(expected);
     }
 
-    private class NullOrWhiteSpaceValueGenerator : TheoryData<string?>
+    private sealed class NullOrWhiteSpaceValueGenerator : TheoryData<string?>
     {
         public NullOrWhiteSpaceValueGenerator()
         {
@@ -72,7 +83,18 @@ public class StringExtensionsTests
         }
     }
 
-    private class NonWhitespaceValueGenerator : TheoryData<string?>
+    private sealed class WhiteSpaceValueGenerator : TheoryData<string?>
+    {
+        public WhiteSpaceValueGenerator()
+        {
+            Add("");
+            Add(" ");
+            Add("\t");
+            Add(" \t ");
+        }
+    }
+
+    private sealed class NonWhitespaceValueGenerator : TheoryData<string?>
     {
         public NonWhitespaceValueGenerator()
         {
@@ -82,7 +104,7 @@ public class StringExtensionsTests
         }
     }
 
-    private class StringEnumerableToBeJoinedValueGenerator : TheoryData<EnumerableStringList, bool, string>
+    private sealed class StringEnumerableToBeJoinedValueGenerator : TheoryData<EnumerableStringList, bool, string>
     {
         public StringEnumerableToBeJoinedValueGenerator()
         {
