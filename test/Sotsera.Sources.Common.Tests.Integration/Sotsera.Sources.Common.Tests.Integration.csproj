@@ -13,10 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sotsera.Sources.Common">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Sotsera.Sources.Common" />
   </ItemGroup>
 
 </Project>
