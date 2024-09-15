@@ -52,4 +52,11 @@ internal static class StringExtensions
             ? string.Empty
             : string.Join(separator, values.Where(x => includeEmptyValues || !string.IsNullOrWhiteSpace(x)));
     }
+
+    /// <summary>
+    /// Trims the specified string, returning an empty string if the input is null or consists only of white-space characters.
+    /// </summary>
+    /// <param name="value">The string to trim.</param>
+    /// <returns>A trimmed version of the input string, or an empty string if the input is null or white-space.</returns>
+    public static string Trimmed(this string? value) => string.IsNullOrWhiteSpace(value) ? string.Empty : value.Trim();
 }

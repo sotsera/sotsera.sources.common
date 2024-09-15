@@ -71,6 +71,24 @@ public class StringExtensionsTests
         list.Values.JoinStrings("; ", includeEmptyValues).Should().Be(expected);
     }
 
+    [Theory]
+    [ClassData(typeof(NullOrWhiteSpaceValueGenerator))]
+    public void Trimmed_ShouldReturnStringEmpty_WhenValueIsNullOrEmpty(string value)
+    {
+        value.Trimmed().Should().Be(string.Empty);
+    }
+
+    [Theory]
+    [InlineData("ciao", "ciao")]
+    [InlineData("ciao ", "ciao")]
+    [InlineData(" ciao", "ciao")]
+    [InlineData("\tciao\t", "ciao")]
+    [InlineData(" ciao ciao ", "ciao ciao")]
+    public void Trimmed_ShouldReturn_TheExpectedValue(string value, string expected)
+    {
+        value.Trimmed().Should().Be(expected);
+    }
+
     private sealed class NullOrWhiteSpaceValueGenerator : TheoryData<string?>
     {
         public NullOrWhiteSpaceValueGenerator()
