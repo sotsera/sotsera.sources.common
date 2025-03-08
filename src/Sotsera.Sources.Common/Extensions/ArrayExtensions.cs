@@ -9,7 +9,7 @@ namespace Sotsera.Sources.Common.Extensions;
 /// <summary>
 /// Provides extension methods for array validation and manipulation.
 /// </summary>
-public static class ArrayExtensions
+internal static class ArrayExtensions
 {
     /// <summary>
     /// Throws an <see cref="ArgumentException"/> if the provided array is null or empty.
