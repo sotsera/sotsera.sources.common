@@ -9,7 +9,7 @@ namespace Sotsera.Sources.Common.Extensions;
 /// <summary>
 /// Provides extension methods for list validation and manipulation.
 /// </summary>
-public static class ListExtensions
+internal static class ListExtensions
 {
     /// <summary>
     /// Throws an <see cref="ArgumentException"/> if the provided list is null or empty.

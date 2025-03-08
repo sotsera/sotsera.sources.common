@@ -8,7 +8,7 @@ namespace Sotsera.Sources.Common.Extensions;
 /// <summary>
 /// Provides extension methods for <see cref="StringBuilder"/> validation and manipulation.
 /// </summary>
-public static class StringBuilderExtensions
+internal static class StringBuilderExtensions
 {
     /// <summary>
     /// Appends the specified value to the <see cref="StringBuilder"/> if the given condition is true.
