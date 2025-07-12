@@ -23,6 +23,9 @@ jobs:
       - name: dotnet build (sources only)
         run: dotnet build src/Sotsera.Sources.Common/Sotsera.Sources.Common.csproj --configuration Release
 
+      - name: dotnet restore
+        run: dotnet restore
+
       - name: dotnet build (tests only)
         run: |
           dotnet build test/Sotsera.Sources.Common.Tests.Unit/Sotsera.Sources.Common.Tests.Unit.csproj --configuration Release

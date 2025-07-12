@@ -29,6 +29,9 @@ jobs:
       - name: Set up .NET Core (global.json)
         uses: actions/setup-dotnet@v4
 
+      - name: dotnet restore
+        run: dotnet restore
+
       - name: dotnet build (sources only)
         run: dotnet build src/Sotsera.Sources.Common/Sotsera.Sources.Common.csproj --configuration Release
 
